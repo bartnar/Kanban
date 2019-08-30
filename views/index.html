@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins:400,500&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://kit.fontawesome.com/f6ec8ec461.js"></script>
+    <!-- <script type="module" src="/js/app.js"></script> -->
+    <link rel="stylesheet" href="/styles/style.css" />
+    <title>Kanban board</title>
+  </head>
+  <body>
+    <header class="main-header">
+      <div class="sticky-width-header">
+        <div class="logo-container">
+          <img class="logo" src="/img/trlogo.PNG" alt="logo" />
+          <h1 class="main-title">Kanban board</h1>
+        </div>
+        <nav>
+          <div class="add-buttons">
+            <form action="/views/index.html">
+              <button class="i-page btn">Home</button>
+            </form>
+            <button id="newBoardBtn" class="new-board btn">New board</button>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <div class="modal" id="newBoardModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <span class="closeBtn">&times;</span>
+          <h3>New board</h3>
+        </div>
+        <input
+          type="text"
+          name="boardName"
+          id="boardName"
+          placeholder="Enter name"
+        />
+        <button class="createBtn btn">Create</button>
+      </div>
+    </div>
+    <main>
+      <div id="app">
+        <section id="wall-of-boards" class="wall-of-boards">
+          <div class="board-wrapper">
+            <div id="board" class="board">
+              <h3 class="board-title">Name of the board</h3>
+              <a href="/views/board.html" class="desk"
+                ><img src="/img/board.png" alt="board"
+              /></a>
+              <div class="btn-round-container">
+                <button class="round btn">
+                  <i class="fas fa-trash boardDelete"></i>
+                </button>
+                <button class="round btn">
+                  <i class="fas fa-pencil-alt"></i>
+                </button>
+                <button class="round btn"><i class="fas fa-cog"></i></button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"
+      integrity="sha256-lPE3wjN2a7ABWHbGz7+MKBJaykyzqCbU96BJWjio86U="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TimelineMax.min.js"
+      integrity="sha256-fIkQKQryItPqpaWZbtwG25Jp2p5ujqo/NwJrfqAB+Qk="
+      crossorigin="anonymous"
+    ></script>
+    <script src="/js/animations.js"></script>
+    <script src="/js/main.js"></script>
+  </body>
+</html>
