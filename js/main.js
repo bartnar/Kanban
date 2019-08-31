@@ -164,11 +164,12 @@ function createBoard() {
     btnRoundContainer.append(roundBtn);
   }
 
-  // Close modal and clear it's input
+  // Close modal, clear it's input and runs essential functions
   closeModal();
   clearInput();
   deletion();
   changeName();
+  getIntoBoard();
 }
 
 // ! End of Adding new board in HTML with JS
@@ -186,9 +187,7 @@ function deletion() {
   });
 }
 
-// ! Delete board
-
-// Edit boards name
+// !Edit boards name
 function changeName() {
   let changeButtons = document
     .getElementById(["wall-of-boards"])
@@ -213,6 +212,19 @@ function changeName() {
           newName.parentNode.replaceChild(currName, newName);
         }
       });
+    });
+  });
+}
+
+// !Board settings(just enters the board)
+
+function getIntoBoard() {
+  let settingsButtons = document
+    .getElementById(["wall-of-boards"])
+    .getElementsByClassName("boardSettings");
+  Array.from(settingsButtons).forEach(function(settingsButton) {
+    settingsButton.addEventListener("click", () => {
+      location.href = "/views/board.html";
     });
   });
 }
