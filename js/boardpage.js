@@ -1,5 +1,34 @@
+// !Animations
+
+const header = document.querySelector(".main-header");
+const name = document.getElementById("boardName");
+const filters = document.querySelector([".filters-wrapper"]);
+const app = document.getElementById("app");
+const pageTl = new TimelineMax();
+
+let fileName = location.pathname.split("/").slice(-1);
+function startAnimation() {
+  if (fileName == "board.html") {
+    pageTl
+      .fromTo(header, 2.0, { opacity: "0" }, { opacity: "1" })
+      .fromTo(
+        header,
+        1.0,
+        { y: "-100%" },
+        { y: "0%", ease: Power2.easeInOut },
+        "-=2"
+      )
+      .fromTo(name, 1.0, { y: "100%" }, { y: "0%" }, "-=2")
+      .fromTo(name, 2.0, { opacity: "0" }, { opacity: "1" }, "-=2")
+      .fromTo(filters, 1.0, { x: "100%" }, { x: "0%" }, "-=1.5")
+      .fromTo(app, 1.0, { x: "-100%" }, { x: "0%" }, "-=1.5");
+  }
+}
+
+startAnimation();
+
 document.getElementById("boardName").getElementsByTagName("h2")[0].innerHTML =
-  "Name";
+  "The name of the board";
 // ! Filters section
 window.onhashchange = () => {
   document.querySelector(".activeFilter").textContent = location.hash
@@ -464,6 +493,12 @@ const setId = () => {
 };
 
 const createTaskBtn = document.getElementsByClassName("createTaskBtn")[0];
+
+document.getElementById("description").addEventListener("keydown", e => {
+  if (e.keyCode === 13) {
+    createTask();
+  }
+});
 
 createTaskBtn.addEventListener("click", createTask);
 

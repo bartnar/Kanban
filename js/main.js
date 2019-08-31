@@ -1,3 +1,30 @@
+//! Animations
+
+const header = document.querySelector(".main-header");
+const headerContent = document.querySelector(".sticky-width-header");
+const boardsWall = document.querySelector(".wall-of-boards");
+
+const pageTl = new TimelineMax();
+
+function animateBoard() {
+  let fileName = location.pathname.split("/").slice(-1);
+  if (fileName == "index.html") {
+    pageTl
+      .fromTo(boardsWall, 1.0, { opacity: "0" }, { opacity: "1" })
+      .fromTo(boardsWall, 1.3, { scale: "1.1" }, { scale: "1.0" }, "-=1");
+  }
+}
+
+function startAnimation() {
+  let fileName = location.pathname.split("/").slice(-1);
+  if (fileName == "index.html") {
+    pageTl
+      .fromTo(header, 1.0, { x: "100%" }, { x: "0%", ease: Power2.easeInOut })
+      .fromTo(headerContent, 1.0, { opacity: "0" }, { opacity: "1" });
+  }
+}
+
+startAnimation();
 // ! Modal window section starts here
 
 // Get modal element
@@ -120,111 +147,79 @@ const setId = () => {
 //Function to create DOM board structure
 
 function createBoard() {
-  let boardsSection = document.getElementById("wall-of-boards");
-  let boardContainerWrapper = document.createElement("div");
-  boardContainerWrapper.classList.add("board-wrapper");
-  boardContainerWrapper.id = "board" + setId();
-  boardsSection.prepend(boardContainerWrapper);
-  let boardContainer = document.createElement("div");
-  boardContainer.classList.add("board");
+  let rndBtnClassArr = ["fa-trash", "fa-pencil-alt", "fa-cog"];
+  let rndBtnFnClassArr = ["boardDelete", "boardEdit", "boardSettings"];
+  let nameOfTheBoard = document.getElementById("boardName").value;
+  setId();
+  let Create = {
+    render: () => {
+      let view = /*html*/ `
+      
+            <div class="board-wrapper" id="board${idCounter}">
+              <div class="board">
+                <h3 class="board-title">${nameOfTheBoard}</h3>
+                <a href="/views/board.html" class="desk"
+                  ><img src="/img/board.png" alt="board"
+                /></a>
+                <div class="btn-round-container">
+                  <button onclick='deletion(board${idCounter})' class="round btn">
+                    <i class="fas fa-trash boardDelete"></i>
+                  </button>
+                  <button onclick='changeName(board${idCounter})' class="round btn">
+                    <i class="fas fa-pencil-alt boardEdit"></i>
+                  </button>
+                  <button onclick='getIntoBoard()' class="round btn"><i class="fas fa-cog boardSettings"></i></button>
+                </div>
+              </div>
+            </div>
 
-  boardContainerWrapper.append(boardContainer);
+      `;
+      return view;
+    }
+  };
 
-  // Create board title
-
-  let title = document.createElement("h3");
-  title.classList.add("board-title");
-  title.innerHTML = getName();
-  boardContainer.prepend(title);
-
-  // Create board preview img with anchor
-  let anchor = document.createElement("a");
-  anchor.classList.add("desk");
-  anchor.href = "/views/board.html";
-  let img = document.createElement("img");
-  img.src = "/img/board.png";
-  img.alt = "board";
-  anchor.append(img);
-  boardContainer.append(anchor);
-
-  // Create button container with round buttons
-  let btnRoundContainer = document.createElement("div");
-  btnRoundContainer.classList.add("btn-round-container");
-  boardContainer.append(btnRoundContainer);
-
-  // Making round buttons with it's own classes and id's
-  for (let i = 0; i <= 2; i++) {
-    let rndBtnClassArr = ["fa-trash", "fa-pencil-alt", "fa-cog"];
-    let rndBtnFnClassArr = ["boardDelete", "boardEdit", "boardSettings"];
-    let roundBtn = document.createElement("button");
-    roundBtn.classList.add("round", "btn");
-    let iTag = document.createElement("i");
-    iTag.classList.add("fas", rndBtnClassArr[i], rndBtnFnClassArr[i]);
-    roundBtn.append(iTag);
-    btnRoundContainer.append(roundBtn);
-  }
+  document.getElementById(["wall-of-boards"]).innerHTML =
+    Create.render() + document.getElementById(["wall-of-boards"]).innerHTML;
 
   // Close modal, clear it's input and runs essential functions
   closeModal();
   clearInput();
-  deletion();
-  changeName();
-  getIntoBoard();
+  animateBoard();
 }
 
 // ! End of Adding new board in HTML with JS
 
 // ! Delete board
-function deletion() {
-  let deleteButtons = document
-    .getElementById(["wall-of-boards"])
-    .getElementsByClassName("boardDelete");
-  Array.from(deleteButtons).forEach(function(deleteButton) {
-    deleteButton.addEventListener("click", () => {
-      let board = document.getElementById(["board" + idCounter]);
-      board.remove();
-    });
-  });
+function deletion(board) {
+  currId = board.id;
+  let boardCurr = document.getElementById(currId);
+  boardCurr.remove();
 }
 
 // !Edit boards name
-function changeName() {
-  let changeButtons = document
-    .getElementById(["wall-of-boards"])
-    .getElementsByClassName("boardEdit");
-  Array.from(changeButtons).forEach(function(changeButton) {
-    changeButton.addEventListener("click", () => {
-      let currName = document
-        .getElementById(["board" + idCounter])
-        .querySelector(".board h3");
-      let newName = document.createElement("input");
-      setTimeout(() => newName.focus(), 0);
-      newName.name = "newHead";
-      newName.id = "newHead";
-      newName.type = "text";
-      newName.style.fontSize = "2rem";
-      newName.style.width = "500px";
-      newName.value = currName.innerHTML;
-      currName.parentNode.replaceChild(newName, currName);
-      newName.addEventListener("keydown", e => {
-        if (e.keyCode === 13) {
-          currName.innerHTML = newName.value;
-          newName.parentNode.replaceChild(currName, newName);
-        }
-      });
-    });
+function changeName(board) {
+  currId = board.id;
+  let changeButton = document.getElementById(currId);
+  let currName = changeButton.querySelector(".board h3");
+  let newName = document.createElement("input");
+  setTimeout(() => newName.focus(), 0);
+  newName.name = "newHead";
+  newName.id = "newHead";
+  newName.type = "text";
+  newName.style.fontSize = "2rem";
+  newName.style.width = "500px";
+  newName.value = currName.innerHTML;
+  currName.parentNode.replaceChild(newName, currName);
+  newName.addEventListener("keydown", e => {
+    if (e.keyCode === 13) {
+      currName.innerHTML = newName.value;
+      newName.parentNode.replaceChild(currName, newName);
+    }
   });
 }
 
 // !Board settings(just enters the board)
 
 function getIntoBoard() {
-  let settingsButtons = document
-    .getElementById(["wall-of-boards"])
-    .getElementsByClassName("boardSettings");
-  Array.from(settingsButtons).forEach(function(settingsButton) {
-    settingsButton.addEventListener("click", () => {
-      location.href = "/views/board.html";
-    });
-  });
+  location.href = "/views/board.html";
 }
