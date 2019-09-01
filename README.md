@@ -16,7 +16,7 @@ On board page you could add tasks, set their priorities. By simply clicking on t
 
 [![](https://i.imgur.com/gxLW8vR.png)](https://youtu.be/UtdKYfseYxc)
 
-Use drag and drop and edit them
+Use drag and drop to visually manage your business processes
 
 [![](https://i.imgur.com/hWcN8hf.png)](https://youtu.be/x9552r3UA7c)
 
