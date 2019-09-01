@@ -3,7 +3,7 @@ Just a simple Kanban board. Literally
 
 Run it by live server from **index.html** and it should work just as you expect it.
 
-##All previews are clickable
+## All previews are clickable
 
 [![](https://i.imgur.com/foCpt7V.png)](https://youtu.be/Z90rNCyrjl8)
 ## Home
@@ -18,5 +18,5 @@ On board page you could add tasks, set  their priorities
 
 Use drag and drop and edit them
 
-[![](https://i.imgur.com/hWcN8hf.png](https://youtu.be/x9552r3UA7c)
+[![](https://i.imgur.com/hWcN8hf.png)](https://youtu.be/x9552r3UA7c)
 
