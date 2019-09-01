@@ -12,7 +12,7 @@ On home page you could add boards, rename them and delete. Also, by clicking on 
 [![](https://i.imgur.com/4GhQ8gp.png)](https://youtu.be/T7fXtETM7_0)
 
 ## Board
-On board page you could add tasks, set  their priorities
+On board page you could add tasks, set their priorities. By simply clicking on the task you could change it's settings
 
 [![](https://i.imgur.com/gxLW8vR.png)](https://youtu.be/UtdKYfseYxc)
 
